@@ -17,7 +17,7 @@ from time import time
 
 # learning parameters
 BATCH_SIZE = 64
-EPOCHS = 80
+EPOCHS = 40
 lr = 0.1
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = VDSR().to(device)
@@ -51,8 +51,9 @@ def train(model, dataloader):
     final_psnr = running_psnr / len(dataloader)
     return final_loss, final_psnr
 
-train_loss = []
-train_psnr = []
+train_loss = [[], [], []]
+train_psnr = [[], [], []]
+
 start = time()
 for scale_factor in [2, 3, 4]:
     print(f'Train Model for Scale Factor x{scale_factor}')
@@ -71,8 +72,8 @@ for scale_factor in [2, 3, 4]:
         epoch_loss, epoch_psnr = train(model, train_loader)
         print(f'Training PSNR: {epoch_psnr:.3f}')
 
-        train_loss.append(epoch_loss)
-        train_psnr.append(epoch_psnr)
+        train_loss[scale_factor-2].append(epoch_loss)
+        train_psnr[scale_factor-2].append(epoch_psnr)
 
         scheduler.step()
 end = time()
@@ -83,7 +84,9 @@ matplotlib.style.use('ggplot')
 # display statistics
 # - loss plot
 plt.figure(figsize=(10, 7))
-plt.plot(train_loss, color='orange', label='train loss')
+plt.plot(train_loss[0], color='red', label='train loss')
+plt.plot(train_loss[1], color='orange', label='train loss')
+plt.plot(train_loss[2], color='purple', label='train loss')
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
 plt.legend()
@@ -91,7 +94,9 @@ plt.savefig('../outputs/loss.png')
 plt.show()
 # - psnr plot
 plt.figure(figsize=(10, 7))
-plt.plot(train_psnr, color='green', label='train PSNR dB')
+plt.plot(train_psnr[0], color='green', label='train PSNR dB')
+plt.plot(train_psnr[1], color='blue', label='train PSNR dB')
+plt.plot(train_psnr[2], color='cyan', label='train PSNR dB')
 plt.xlabel('Epochs')
 plt.ylabel('PSNR (dB)')
 plt.legend()
