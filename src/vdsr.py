@@ -21,6 +21,11 @@ class VDSR(nn.Module):
         self.output = nn.Conv2d(in_channels=64, out_channels=1, kernel_size=3, stride=1, padding=1, bias=False)
         self.relu = nn.ReLU(inplace=True)
 
+        # import math
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                torch.nn.init.kaiming_uniform_(m.weight) # he_initialization
+
     def make_layer(self, block, num_block):
         layers = []
         for _ in range(num_block):
