@@ -10,25 +10,8 @@ python3 src/train.py
 ```
 
 ### Prepare Training dataset
-- Training dataset consists of 291 images, 200 for BSDS200 and 91 for T91.
-- Download dataset [here](http://vllab.ucmerced.edu/wlai24/LapSRN/), and make structure like below.
-
-```sh
-VDSR-pytorch
-│ 
-├─ LICENSE
-├─ README.md
-│ 
-├─ data
-│  └─ 291Trainset
-│           img001.png
-│           img002.png
-│           ...
-├─ outputs
-├─ src
-└─ utils
-```
+- Download train dataset with hdf5 format from [here](https://github.com/twtygqyy/pytorch-vdsr).
 
 ### Performance
-- Trained my VSDR model on 291 images with data augmentation
+- Trained my VDSR model on 291 images with data augmentation
 - No bias is used in this implementation, and the gradient clipping's implementation is different from paper
