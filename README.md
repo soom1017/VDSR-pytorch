@@ -3,12 +3,6 @@ VDSR(CVPR 2016) pytorch implementation
 
 Implementation of CVPR2016 Paper: ["Accurate Image Super-Resolution Using Very Deep Convolutional Networks"](https://cv.snu.ac.kr/research/VDSR/VDSR_CVPR2016.pdf) in PyTorch
 
-## Usage
-### Training
-```
-python3 src/train.py
-```
-
 ### Prepare Training dataset
 - Download train dataset with hdf5 format from [here](https://github.com/twtygqyy/pytorch-vdsr).
 
